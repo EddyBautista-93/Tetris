@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
+
+    // Game Logic
     class GameGrid
     {
         // Two Dimensional Rectangular Array  / Matrices
@@ -66,6 +68,47 @@ namespace Tetris
                 }
             }
             return true;
+        }
+
+
+        // Clearing the rows.
+        private void ClearRow(int r)
+        {
+            for(int c = 0; c < Columns; c++)
+            {
+                grid[r, c] = 0;
+            }
+        }
+
+        // Moves rows down after clearing 
+        private void MoveRowDown(int r, int numRows)
+        {
+            for(int c = 0; c < Columns; c++)
+            {
+                grid[r + numRows, c] = grid[r, c];
+                grid[r, c] = 0;
+            }
+        }
+
+        public int ClearFullRows()
+        {
+            int cleared = 0;
+            
+            // Start from the bottom of the rows
+            for (int r = Rows - 1; r < 0; r--)
+            {
+                if(IsRowFull(r))
+                {
+                    ClearRow(r);
+                    cleared++;
+                } 
+                else if(cleared > 0)
+                {
+                    MoveRowDown(r, cleared);
+                }
+
+            }
+            return cleared;
         }
     }
 }
