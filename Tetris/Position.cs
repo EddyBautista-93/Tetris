@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
-    class Position
+    public class Position
     {
         public int Row { get; set; }
         public int Column { get; set; }
